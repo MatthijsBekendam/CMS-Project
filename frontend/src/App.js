@@ -1,25 +1,68 @@
-import logo from './logo.svg';
 import './App.css';
+import ArticleCard from "./components/ArticleCard";
+import axios from "axios";
+import {Component} from "react";
+import {Grid} from "@material-ui/core";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const todoItems = [
+    {
+        id: 1,
+        title: "Go to Market",
+        description: "Buy ingredients to prepare dinner",
+    },
+    {
+        id: 2,
+        title: "Study",
+        description: "Read Algebra and History textbook for the upcoming test",
+    },
+    {
+        id: 3,
+        title: "Sammy's books",
+        description: "Go to library to return Sammy's books",
+    },
+    {
+        id: 4,
+        title: "Article",
+        description: "Write article on how to use Django with React",
+    },
+    {
+        id: 3,
+        title: "Sammy's books",
+        description: "Go to library to return Sammy's books",
+    },
+    {
+        id: 4,
+        title: "Article",
+        description: "Write article on how to use Django with React",
+    },
+];
+// import data
+// display data
+class App extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            todoList: todoItems,
+        };
+    }
+
+    render() {
+        return (
+            <div className="App">
+                <Grid container spacing={2}>
+
+                    {this.state.todoList.map(object =>
+                        <Grid item xs={3}>
+                            <ArticleCard
+                                object={object}/>
+                        </Grid>)
+                    }
+                </Grid>
+
+
+            </div>
+        );
+    }
 }
 
 export default App;
