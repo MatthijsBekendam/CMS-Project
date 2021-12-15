@@ -21,7 +21,10 @@ export default function ArticleCard({object}) {
                 </Typography>
             </CardContent>
             <CardActions>
-                <Button size="small">Learn More</Button>
+                <Button size="small">Edit</Button>
+                <Button size="small">Comment</Button>
+
+
             </CardActions>
         </Card>
     );
