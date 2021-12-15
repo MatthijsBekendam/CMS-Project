@@ -42,22 +42,35 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            todoList: todoItems,
+            todoList: [],
         };
     }
 
+    componentDidMount() {
+        this.refreshList();
+    }
+
+    refreshList = () => {
+        axios
+            .get("/api/articles/")
+            .then((res) => this.setState({todoList: res.data}))
+            .catch((err) => console.log(err));
+    };
+
     render() {
         return (
-            <div className="App">
-                <Grid container spacing={2}>
+            <div style={{width: '100vw', height: '100vw', backgroundColor: "#D0D3D4"}}>
+                <div className="App">
+                    <Grid container spacing={2}>
 
-                    {this.state.todoList.map(object =>
-                        <Grid item xs={3}>
-                            <ArticleCard
-                                object={object}/>
-                        </Grid>)
-                    }
-                </Grid>
+                        {this.state.todoList.map(object =>
+                            <Grid item xs={3}>
+                                <ArticleCard
+                                    object={object}/>
+                            </Grid>)
+                        }
+                    </Grid>
+                </div>
 
 
             </div>
