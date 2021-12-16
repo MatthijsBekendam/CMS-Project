@@ -21,7 +21,7 @@ from articles import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/articles/', views.ArticleView.as_view(), name='article'),
+    path('api/articles/', views.ArticleView.as_view(), name='articles'),
     path('api/edit-articles/', views.EditArticleView.as_view(), name='edit'),
     path('api/comment/', views.ArticleCommentView.as_view(), name='comment'),
     path('api/delete-articles/', views.DeleteArticle.as_view(), name='delete'),
