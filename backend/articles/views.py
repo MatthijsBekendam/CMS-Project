@@ -31,11 +31,11 @@ class ArticleView(APIView):
         if serializer.is_valid():
             title = serializer.data.get('title')
             description = serializer.data.get('description')
-            try:
-                query_if_already_exists = Article.objects.get(title=title)
+            query_if_already_exists = Article.objects.filter(title=title)
+            if query_if_already_exists.exists():
                 return Response({"message:", "Article already exists in database!"},
-                                status=status.HTTP_208_ALREADY_REPORTED)
-            except ObjectDoesNotExist:
+                                status=status.HTTP_306_RESERVED)
+            else:
                 Article.objects.create(title=title, description=description)
                 return Response({"message:", "Article Created!"}, status=status.HTTP_201_CREATED)
 

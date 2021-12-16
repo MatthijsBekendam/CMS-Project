@@ -4,7 +4,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import {TextField} from "@material-ui/core";
-import {useEffect} from "react";
+import {useEffect, useLayoutEffect} from "react";
 import axios from "axios";
 
 const style = {
@@ -27,13 +27,21 @@ export default function AddButtonModal() {
     const [description, setDescription] = React.useState("");
     const [save, setSave] = React.useState(false);
 
-    useEffect(() => {
-        const item = {id:"", title: title, description: description};
+    function postArticle(){
+        const item = {id: "", title: title, description: description};
         axios
-            .post("/api/articles/",item)
-            .then((res) => console.log(res));
-    }, [save]);
-
+            .post("/api/articles/", item)
+            .then((res) => console.log(res)).then(() => window.location.href = '/'
+        ).catch((error) => {
+            console.log('Error', error)
+            if (error.response.status === 306) {
+                alert("article already exists")
+            }
+            if (error.response.status === 400) {
+                alert("Please fill in all information")
+            }
+        });
+   }
     return (
         <div>
             <Button variant="contained" onClick={handleOpen}>Add Product</Button>
@@ -57,7 +65,7 @@ export default function AddButtonModal() {
                                onChange={e => setDescription(e.target.value)}
 
                     />
-                    <Button onClick={() => setSave(!save)}>Save</Button>
+                    <Button onClick={() => postArticle()}>Save</Button>
                 </Box>
             </Modal>
         </div>
