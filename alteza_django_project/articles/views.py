@@ -99,13 +99,10 @@ class ArticleCommentView(APIView):
             user = serializer.data.get('user')
             comment = serializer.data.get('comment')
             id = request.data.get('id')
-            print("iam id", id)
             query_article = Article.objects.filter(id=id)
-            print(query_article)
             if len(query_article) > 0:
-                ArticleComments.objects.create(user=user, comment=comment, article=query_article)
+                ArticleComments.objects.create(user=user, comment=comment, article=query_article[0])
                 return Response({"message:", "Article Created!"}, status=status.HTTP_201_CREATED)
             else:
                 return Response({"Bad Request:", "No Article Found!"}, status=status.HTTP_404_NOT_FOUND)
-        print(serializer.errors)
         return Response({f'Serializer not valid': f'{serializer.errors}'}, status=status.HTTP_400_BAD_REQUEST)

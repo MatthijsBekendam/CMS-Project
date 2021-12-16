@@ -23,5 +23,4 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/articles/', views.ArticleView.as_view(), name='articles'),
     path('api/comment/', views.ArticleCommentView.as_view(), name='comment'),
-    path("", include("frontend.urls"))
 ]

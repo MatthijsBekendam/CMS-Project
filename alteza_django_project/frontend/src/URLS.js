@@ -10,8 +10,7 @@ export default class HomePage extends Component {
     render() {
         return (<Router>
             <Switch>
-                <Route exact path='/' component={App}></Route>
-
+                <Route exact path='/home' component={App}></Route>
             </Switch>
         </Router>)
     }
