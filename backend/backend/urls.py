@@ -18,11 +18,10 @@ from django.urls import path, include
 from rest_framework import routers
 
 from articles import views
-from ..frontend import urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/articles/', views.ArticleView.as_view(), name='articles'),
     path('api/comment/', views.ArticleCommentView.as_view(), name='comment'),
-    path("", include(urls))
+    path("", include("frontend.urls"))
 ]
