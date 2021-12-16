@@ -28,7 +28,7 @@ export default function AddButtonModal() {
     const [save, setSave] = React.useState(false);
 
     useEffect(() => {
-        const item = {title: title, description: description};
+        const item = {id:"", title: title, description: description};
         axios
             .post("/api/articles/",item)
             .then((res) => console.log(res));
@@ -54,7 +54,7 @@ export default function AddButtonModal() {
                                multiline
                                rows={2}
                                maxRows={4}
-                               onChange={e => setTitle(e.target.value)}
+                               onChange={e => setDescription(e.target.value)}
 
                     />
                     <Button onClick={() => setSave(!save)}>Save</Button>
