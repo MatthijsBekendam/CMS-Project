@@ -59,7 +59,7 @@ export default function AddButtonModal({object}) {
 
     return (
         <div>
-            {object === undefined ? <Button variant="contained" onClick={handleOpen}>Add Product</Button>
+            {object === undefined ? <Button id="add-product-button" variant="contained" onClick={handleOpen}>Add Product</Button>
                 :
                 <Button onClick={handleOpen}>Edit</Button>
 

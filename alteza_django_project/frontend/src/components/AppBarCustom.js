@@ -22,7 +22,6 @@ export default function AppBarCustom() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Project Alteza
           </Typography>
-          <Button color="inherit">Login</Button>
         </Toolbar>
       </AppBar>
     </Box>
