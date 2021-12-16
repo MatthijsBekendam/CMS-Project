@@ -13,6 +13,8 @@ INSTALL INSTRUCTIONS
 
 - go to http://localhost:3000/ to view website.
 
+
+
 TEST INSTRUCTIONS
 
 - test can be ran by going to "alteza_django_project/backend" and running "python manage.py test articles"
