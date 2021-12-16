@@ -94,3 +94,28 @@ class ArticleCommentView(APIView):
             return Response({"message:", "Article Created!"}, status=status.HTTP_201_CREATED)
 
         return Response({f'Serializer not valid': f'{serializer.errors}'}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class DeleteArticle(APIView):
+    """
+    Process POST request for the Article model.
+    """
+
+    serializer_class = ArticleSerializer
+
+    def post(self, request, format=None):
+        """Delete an object within the Article model."""
+        serializer = self.serializer_class(data=request.data)
+
+        if serializer.is_valid():
+            id = request.data.get('id')
+            query_if_exists = Article.objects.filter(id=id)
+            if query_if_exists.exists():
+                object_to_delete = query_if_exists[0]
+                object_to_delete.delete()
+                return Response({"message:", "Article Deleted!"}, status=status.HTTP_200_OK)
+
+            else:
+                return Response({"message:", "Article Not Found!"}, status=status.HTTP_404_NOT_FOUND)
+
+        return Response({f'Serializer not valid': f'{serializer.errors}'}, status=status.HTTP_400_BAD_REQUEST)
