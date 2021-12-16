@@ -30,6 +30,9 @@ class ArticleView(APIView):
             if query_if_already_exists.exists():
                 return Response({"message:", "Article already exists in database!"},
                                 status=status.HTTP_306_RESERVED)
+            elif not title or not description:
+                return Response({"message:", "title and/or description are empty!"},
+                                status=status.HTTP_406_NOT_ACCEPTABLE)
             else:
                 Article.objects.create(title=title, description=description)
                 return Response({"message:", "Article Created!"}, status=status.HTTP_201_CREATED)
@@ -38,6 +41,7 @@ class ArticleView(APIView):
 
     def delete(self, request, format=None):
         """Delete an object within the Article model."""
+
         serializer = self.serializer_class(data=request.data['source'])
         if serializer.is_valid():
             id = request.data['source'].get('id')
@@ -95,9 +99,13 @@ class ArticleCommentView(APIView):
             user = serializer.data.get('user')
             comment = serializer.data.get('comment')
             id = request.data.get('id')
-            query_article = Article.objects.get(id=id)
-
-            ArticleComments.objects.create(user=user, comment=comment, article=query_article)
-            return Response({"message:", "Article Created!"}, status=status.HTTP_201_CREATED)
-
+            print("iam id", id)
+            query_article = Article.objects.filter(id=id)
+            print(query_article)
+            if len(query_article) > 0:
+                ArticleComments.objects.create(user=user, comment=comment, article=query_article)
+                return Response({"message:", "Article Created!"}, status=status.HTTP_201_CREATED)
+            else:
+                return Response({"Bad Request:", "No Article Found!"}, status=status.HTTP_404_NOT_FOUND)
+        print(serializer.errors)
         return Response({f'Serializer not valid': f'{serializer.errors}'}, status=status.HTTP_400_BAD_REQUEST)

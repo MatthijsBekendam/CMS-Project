@@ -36,7 +36,7 @@ export default function AddButtonModal({object}) {
             if (error.response.status === 306) {
                 alert("article already exists")
             }
-            if (error.response.status === 400) {
+            if (error.response.status === 406) {
                 alert("Please fill in all information")
             }
         });
