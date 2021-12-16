@@ -1,7 +1,7 @@
 import './App.css';
 import ArticleCard from "./components/ArticleCard";
 import axios from "axios";
-import {Component} from "react";
+import {Component, useEffect, useState} from "react";
 import {Grid} from "@material-ui/core";
 import Button from '@mui/material/Button';
 import AppBarCustom from "./components/AppBarCustom";
@@ -14,6 +14,7 @@ class App extends Component {
         super(props);
         this.state = {
             todoList: [],
+            comments:[],
         };
     }
 
@@ -26,6 +27,11 @@ class App extends Component {
             .get("/api/articles/")
             .then((res) => this.setState({todoList: res.data}))
             .catch((err) => console.log(err));
+
+        axios
+            .get("/api/comment/")
+            .then((res) => this.setState({comments: res.data}))
+            .catch((err) => console.log(err))
     };
 
     render() {
@@ -41,7 +47,9 @@ class App extends Component {
                         {this.state.todoList.map(object =>
                             <Grid item xs={3}>
                                 <ArticleCard
-                                    object={object}/>
+                                    object={object}
+                                    comments={this.state.comments}
+                                />
                             </Grid>)
                         }
                     </Grid>

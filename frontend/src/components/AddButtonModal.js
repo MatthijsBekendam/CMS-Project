@@ -23,8 +23,8 @@ export default function AddButtonModal({object}) {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-    const [title, setTitle] = React.useState("");
-    const [description, setDescription] = React.useState("");
+    const [title, setTitle] = React.useState(object === undefined ? "" : object.title);
+    const [description, setDescription] = React.useState(object === undefined ? "" : object.description);
     const [save, setSave] = React.useState(false);
 
     function postArticle() {
@@ -58,7 +58,6 @@ export default function AddButtonModal({object}) {
         });
     }
 
-    console.log("MY OBJECT", object)
     return (
         <div>
             {object === undefined ? <Button variant="contained" onClick={handleOpen}>Add Product</Button>
