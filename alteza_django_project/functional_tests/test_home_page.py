@@ -14,6 +14,6 @@ class TestHomePage(StaticLiveServerTestCase):
         self.browser.close()
 
     def test_add_article_button_is_displayed(self):
-        self.browser.get('http://localhost:3000/home')
+        self.browser.get('http://localhost:3000/')
         alert = self.browser.find_element(By.ID, ID_ADD_PRODUCT_BUTTON)
         self.assertEqual("ADD PRODUCT", alert.text)
