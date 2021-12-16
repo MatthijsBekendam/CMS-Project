@@ -36,15 +36,22 @@ class ArticleView(APIView):
 
         return Response({f'Serializer not valid': f'{serializer.errors}'}, status=status.HTTP_400_BAD_REQUEST)
 
+    def delete(self, request, format=None):
+        """Delete an object within the Article model."""
+        serializer = self.serializer_class(data=request.data['source'])
+        if serializer.is_valid():
+            id = request.data['source'].get('id')
+            query_if_exists = Article.objects.filter(id=id)
+            if query_if_exists.exists():
+                object_to_delete = query_if_exists[0]
+                object_to_delete.delete()
+                return Response({"message:", "Article Deleted!"}, status=status.HTTP_200_OK)
 
-class EditArticleView(APIView):
-    """
-    Process POST request for the Article model.
-    """
+            else:
+                return Response({"message:", "Article Not Found!"}, status=status.HTTP_404_NOT_FOUND)
+        return Response({f'Serializer not valid': f'{serializer.errors}'}, status=status.HTTP_400_BAD_REQUEST)
 
-    serializer_class = ArticleSerializer
-
-    def post(self, request, format=None):
+    def put(self, request, format=None):
         """Edit an object within the Article model."""
         serializer = self.serializer_class(data=request.data)
 
@@ -92,30 +99,5 @@ class ArticleCommentView(APIView):
 
             ArticleComments.objects.create(user=user, comment=comment, article=query_article)
             return Response({"message:", "Article Created!"}, status=status.HTTP_201_CREATED)
-
-        return Response({f'Serializer not valid': f'{serializer.errors}'}, status=status.HTTP_400_BAD_REQUEST)
-
-
-class DeleteArticle(APIView):
-    """
-    Process POST request for the Article model.
-    """
-
-    serializer_class = ArticleSerializer
-
-    def post(self, request, format=None):
-        """Delete an object within the Article model."""
-        serializer = self.serializer_class(data=request.data)
-
-        if serializer.is_valid():
-            id = request.data.get('id')
-            query_if_exists = Article.objects.filter(id=id)
-            if query_if_exists.exists():
-                object_to_delete = query_if_exists[0]
-                object_to_delete.delete()
-                return Response({"message:", "Article Deleted!"}, status=status.HTTP_200_OK)
-
-            else:
-                return Response({"message:", "Article Not Found!"}, status=status.HTTP_404_NOT_FOUND)
 
         return Response({f'Serializer not valid': f'{serializer.errors}'}, status=status.HTTP_400_BAD_REQUEST)

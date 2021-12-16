@@ -25,7 +25,6 @@ export default function AddButtonModal({object}) {
     const handleClose = () => setOpen(false);
     const [title, setTitle] = React.useState(object === undefined ? "" : object.title);
     const [description, setDescription] = React.useState(object === undefined ? "" : object.description);
-    const [save, setSave] = React.useState(false);
 
     function postArticle() {
         const item = {id: "", title: title, description: description};
@@ -45,7 +44,7 @@ export default function AddButtonModal({object}) {
     function editArticle() {
         const item = {id: object.id, title: title, description: description};
         axios
-            .post("/api/edit-articles/", item)
+            .put("/api/articles/", item)
             .then((res) => console.log(res)).then(() => window.location.href = '/'
         ).catch((error) => {
             console.log('Error', error)

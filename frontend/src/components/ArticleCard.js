@@ -27,9 +27,12 @@ export default function ArticleCard({object, comments}) {
     }, [comments, object])
 
     function deleteArticle() {
-        const item = {id: object.id, title: object.title, description: object.description};
+        const item = {id: object.id, title: "", description: ""};
         axios
-            .post("/api/delete-articles/", item)
+            .delete("/api/articles/", {
+              data: {
+                source: item
+              }})
             .then((res) => console.log(res)).then(() => window.location.href = '/'
         ).catch((error) => {
             console.log('Error', error)
@@ -60,7 +63,6 @@ export default function ArticleCard({object, comments}) {
                         <AddButtonModal object={object}/>
                     </Grid>
                     <Grid item xs={3}>
-
                         <CommentModal comments={filteredComments} object={object}/>
                     </Grid>
                     <Grid item xs={4}>

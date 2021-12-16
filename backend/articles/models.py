@@ -9,8 +9,8 @@ class Article(models.Model):
     description (str) : the description of the product
 
     """
-    title = models.CharField(max_length=60)
-    description = models.TextField(max_length=120)
+    title = models.CharField(max_length=60, blank=True)
+    description = models.TextField(max_length=120, blank=True)
 
     def _str_(self):
         return self.title
