@@ -40,3 +40,28 @@ class ArticleView(APIView):
                 return Response({"message:", "Article Created!"}, status=status.HTTP_201_CREATED)
 
         return Response({f'Serializer not valid': f'{serializer.errors}'}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class EditArticleView(APIView):
+    serializer_class = ArticleSerializer
+
+    def post(self, request, format=None):
+
+        serializer = self.serializer_class(data=request.data)
+
+        if serializer.is_valid():
+            title = serializer.data.get('title')
+            description = serializer.data.get('description')
+            id = request.data.get('id')
+            query_if_exists = Article.objects.filter(id=id)
+            if query_if_exists.exists():
+                object_to_update = query_if_exists[0]
+                object_to_update.title = title
+                object_to_update.description = description
+                object_to_update.save()
+                return Response({"message:", "Article Edited!"}, status=status.HTTP_200_OK)
+
+            else:
+                return Response({"message:", "Article Not Found!"}, status=status.HTTP_404_NOT_FOUND)
+        print(serializer.errors)
+        return Response({f'Serializer not valid': f'{serializer.errors}'}, status=status.HTTP_400_BAD_REQUEST)

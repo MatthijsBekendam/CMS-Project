@@ -21,6 +21,7 @@ from articles import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/articles/', views.ArticleView.as_view(), name='example')
+    path('api/articles/', views.ArticleView.as_view(), name='example'),
+    path('api/edit-articles/', views.EditArticleView.as_view(), name='example')
 
 ]

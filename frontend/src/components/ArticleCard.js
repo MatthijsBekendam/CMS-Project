@@ -5,6 +5,7 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import AddButtonModal from "./AddButtonModal";
 
 
 
@@ -21,7 +22,8 @@ export default function ArticleCard({object}) {
                 </Typography>
             </CardContent>
             <CardActions>
-                <Button size="small">Edit</Button>
+                {/*<Button size="small">Edit</Button>*/}
+                <AddButtonModal object={object}/>
                 <Button size="small">Comment</Button>
 
 
