@@ -4,12 +4,13 @@
 
 INSTALL INSTRUCTIONS
 
+
 - Python requirements can be installed via "pip install -r requirements.txt"
 - Cd into alteza_django_project/frontend folder and run
   "npm install" to install node dependencies.
 
 - in same folder run "npm start" to serve front-end
-- cd into "alteza_django_project" and run "python manage.py migrate"
+- open new terminal and cd into "alteza_django_project" and run "python manage.py migrate"
 - cd into "alteza_django_project" and run "python manage.py runserver"
 
 - go to http://localhost:3000/ to view articles.
